@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ταινίες</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h2 {
+      text-align: center;
+    }
+    
+    .movie-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .movie-item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+    
+    .movie-item img {
+      max-width: 100px;
+      margin-right: 10px;
+    }
+    
+    .movie-item h3 {
+      margin: 0;
+    }
+  </style>
+  <script>
+    // Υποθέτουμε ότι έχουμε μια μεταβλητή movies που περιέχει τις διαθέσιμες ταινίες
+    var movies = [
+      {
+        title: "Ταινία 1",
+        image: "path_to_image_1.jpg"
+      },
+      {
+        title: "Ταινία 2",
+        image: "path_to_image_2.jpg"
+      },
+      {
+        title: "Ταινία 3",
+        image: "path_to_image_3.jpg"
+      }
+      // Προσθέστε εδώ περισσότερες ταινίες αν χρειάζεται
+    ];
+    
+    // Συνάρτηση που δημιουργεί δυναμικά τα στοιχεία HTML για τις ταινίες
+    function displayMovies() {
+      var movieList = document.getElementById("movie-list");
+      
+      // Δημιουργούμε ένα στοιχείο li για κάθε ταινία
+      movies.forEach(function(movie) {
+        var listItem = document.createElement("li");
+        listItem.classList.add("movie-item");
+        
+        // Δημιουργούμε την εικόνα της ταινίας
+        var image = document.createElement("img");
+        image.src = movie.image;
+        
+        // Δημιουργούμε τον τίτλο της ταινίας
+        var title = document.createElement("h3");
+        title.textContent = movie.title;
+        
+        // Προσθέτουμε την εικόνα και τον τίτλο στο li στοιχείο
+        listItem.appendChild(image);
+        listItem.appendChild(title);
+        
+        // Προσθέτουμε το li στοιχείο στην λίστα των ταινιών
+        movieList.appendChild(listItem);
+      });
+    }
+    
+    // Καλούμε τη συνάρτηση για να εμφανίσουμε τις ταινίες κατά τη φόρτωση της σελίδας
+    window.onload = displayMovies;
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Οι Διαθέσιμες Ταινίες</h2>
+    <ul id="movie-list" class="movie-list">
+      <!-- Οι ταινίες θα δημιουργηθούν δυναμικά εδώ -->
+    </ul>
+  </div>
+</body>
+</html>
