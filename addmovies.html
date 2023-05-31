@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Προσθήκη Ταινίας</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        form {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Προσθήκη Ταινίας</h1>
+    
+    <form id="filmForm">
+        <label for="filmId">ID Ταινίας:</label>
+        <input type="text" id="filmId" name="filmId"><br><br>
+        
+        <label for="filmTitle">Τίτλος Ταινίας:</label>
+        <input type="text" id="filmTitle" name="filmTitle"><br><br>
+        
+        <label for="filmCategory">Κατηγορία Ταινίας:</label>
+        <input type="text" id="filmCategory" name="filmCategory"><br><br>
+        
+        <label for="filmDescription">Περιγραφή Ταινίας:</label>
+        <textarea id="filmDescription" name="filmDescription"></textarea><br><br>
+        
+        <button type="button" onclick="addFilm()">Προσθήκη Ταινίας</button>
+    </form>
+    
+    <script>
+        function addFilm() {
+            var filmId = document.getElementById("filmId").value;
+            var filmTitle = document.getElementById("filmTitle").value;
+            var filmCategory = document.getElementById("filmCategory").value;
+            var filmDescription = document.getElementById("filmDescription").value;
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "FilmsServlet?filmId=" + filmId + "&filmTitle=" + filmTitle +
+                     "&filmCategory=" + filmCategory + "&filmDescription=" + filmDescription, true);
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert(xhr.responseText);
+                }
+            };
+            
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

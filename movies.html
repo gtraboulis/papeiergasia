@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Προβολή Ταινιών</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Κάλεσμα του servlet για ανάκτηση των δεδομένων των ταινιών
+            $.ajax({
+                url: 'ProvoliServlet',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Εμφάνιση των δεδομένων των ταινιών στον πίνακα
+                    var table = $('<table>').addClass('movies-table');
+                    var tableHeader = $('<tr>').append(
+                        $('<th>').text('ID'),
+                        $('<th>').text('Τίτλος'),
+                        $('<th>').text('Σινεμά'),
+                        $('<th>').text('Ημερομηνία Έναρξης'),
+                        $('<th>').text('Ημερομηνία Λήξης'),
+                        $('<th>').text('Αριθμός Κρατήσεων'),
+                        $('<th>').text('Διαθέσιμη')
+                    );
+                    table.append(tableHeader);
+                    $.each(data, function(index, movie) {
+                        var row = $('<tr>').append(
+                            $('<td>').text(movie.provoliID),
+                            $('<td>').text(movie.provoliFilm),
+                            $('<td>').text(movie.provoliCinema),
+                            $('<td>').text(movie.provoliStartDate),
+                            $('<td>').text(movie.provoliEndDate),
+                            $('<td>').text(movie.provoliNumberOfReservations),
+                            $('<td>').text(movie.provoliIsAvailable ? 'Ναι' : 'Όχι')
+                        );
+                        table.append(row);
+                    });
+                    $('#movies-container').append(table);
+                },
+                error: function() {
+                    console.log('Σφάλμα κατά την ανάκτηση των δεδομένων των ταινιών');
+                }
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .movies-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .movies-table th, .movies-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Προβολή Ταινιών</h1>
+    <div id="movies-container"></div>
+</body>
+</html>
